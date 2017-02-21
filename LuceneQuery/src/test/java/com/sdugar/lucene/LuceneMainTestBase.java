@@ -1,6 +1,7 @@
 package com.sdugar.lucene;
 
 
+import com.sdugar.lucene.annotation.CustomAnnotation;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +30,14 @@ public class LuceneMainTestBase {
     }
 
     @Test
+    @CustomAnnotation
     public void basicTest() {
         Assert.assertTrue( true );
         LOG.info("Basic test cleared");
     }
 
     @Test
+    @CustomAnnotation
     public void queriesTest() throws IOException, ParseException, URISyntaxException {
         searchIndexWithPhraseQuery("french", "fries", 0);
         searchIndexWithPhraseQuery("hamburger", "steak", 0);

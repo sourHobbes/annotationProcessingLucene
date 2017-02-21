@@ -38,6 +38,13 @@
                         </goals>
                         <phase>process-sources</phase>
                     </execution>
+                    <execution>
+                        <id>process-test</id>
+                        <goals>
+                            <goal>process-test</goal>
+                        </goals>
+                        <phase>process-test-sources</phase>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>

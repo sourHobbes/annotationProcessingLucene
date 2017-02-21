@@ -89,21 +89,28 @@ public class CustomAnnotationProcessor extends AbstractProcessor {
                 }
 
                 bw.newLine();
+
                 bw.append("===========================================");
-                bw.newLine();
-                bw.append("Release").append("\t\t\t\t\t\t").append("Kind").append("\t\t\t\t\t\t").append("Name");
-                bw.newLine();
+                    bw.newLine();
+                        bw.append("Release")
+                            .append("\t\t\t\t\t\t")
+                            .append("Kind")
+                            .append("\t\t\t\t\t\t")
+                            .append("Name");
+                    bw.newLine();
+
                 // print the recordTypeMap to the file
                 for (Map.Entry<CustomAnnotation.Release, List<RecordType>> entry : recordTypeMap.entrySet()) {
                     for (RecordType rec : entry.getValue()) {
                         bw.append(entry.getKey().name())
-                                .append("\t\t\t\t\t\t")
-                                .append(rec.kind.toString())
-                                .append("\t\t\t\t\t\t")
-                                .append(rec.name);
-                        bw.newLine();
+                            .append("\t\t\t\t\t\t")
+                            .append(rec.kind.toString())
+                            .append("\t\t\t\t\t\t")
+                            .append(rec.name);
+                    bw.newLine();
                     }
                 }
+
                 bw.append("===========================================");
 
             } catch (IOException e1) {
