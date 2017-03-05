@@ -120,7 +120,7 @@ public class LuceneMain {
         final Directory indexDir = FSDirectory.open( INDEX_DIRECTORY_PATH );
         final Analyzer analyzer = new StandardAnalyzer();
         final IndexWriterConfig iwc = new IndexWriterConfig( analyzer );
-        iwc.setOpenMode( IndexWriterConfig.OpenMode.CREATE );
+        iwc.setOpenMode( IndexWriterConfig.OpenMode.CREATE_OR_APPEND );
         try (final IndexWriter indexWriter = new IndexWriter( indexDir, iwc )) {
             if ( Files.isDirectory( FILES_TO_INDEX_PATH ) ) {
                 Files.walkFileTree( FILES_TO_INDEX_PATH, new SimpleFileVisitor<Path>() {
@@ -154,7 +154,7 @@ public class LuceneMain {
                 Terms terms = reader.getTermVector( i, FIELD_CONTENTS );
                 TermsEnum itr = terms.iterator();
                 LOG.info( "Doc name {}", reader.document( i ).get(FIELD_PATH));
-                LOG.info( "{}{}{}", String.format( "%-75s", "term" ), String.format( "%-10s", "docFreq" ), String.format( "%-10s", "termFreq" ) );
+                LOG.info( "{}{}{}", String.format( "%-45s", "term" ), String.format( "%-10s", "docFreq" ), String.format( "%-10s", "termFreq" ) );
                 LOG.info( "==================================================================================" );
                 StreamSupport.stream( Spliterators.spliteratorUnknownSize( new Iterator<BytesRef>() {
                     private TermsEnum initItr = itr;
@@ -179,8 +179,8 @@ public class LuceneMain {
                         String termText = term.utf8ToString();
                         Term inst = new Term( FIELD_CONTENTS, term );
                         int freq = reader.docFreq( inst );
-                        long totalTermFreq = itr.totalTermFreq();
-                        LOG.info( "{}{}{}", String.format( "%-75s", termText ), String.format( "%-10s", freq ), String.format( "%-10s", totalTermFreq ) );
+                        long totalTermFreq = reader.totalTermFreq(inst);
+                        LOG.info( "{}{}{}", String.format( "%-45s", termText ), String.format( "%-10s", freq ), String.format( "%-10s", totalTermFreq ) );
                     } catch (Exception e) {
                         LOG.error( "Exception while extracting frequencies for all terms", e );
                     }
@@ -197,7 +197,6 @@ public class LuceneMain {
         LOG.info( "Searching for '" + searchString + "' using QueryParser" );
         IndexReader indexReader = DirectoryReader.open( FSDirectory.open( INDEX_DIRECTORY_PATH ) );
         IndexSearcher indexSearcher = new IndexSearcher( indexReader );
-
         QueryParser queryParser = new QueryParser( FIELD_CONTENTS, new StandardAnalyzer() );
         Query query = queryParser.parse( searchString );
         TopDocs docs = indexSearcher.search( query, 100 );
@@ -213,7 +212,6 @@ public class LuceneMain {
         Directory directory = FSDirectory.open( INDEX_DIRECTORY_PATH );
         IndexReader indexReader = DirectoryReader.open( directory );
         IndexSearcher indexSearcher = new IndexSearcher( indexReader );
-
         Term term1 = new Term( FIELD_CONTENTS, string1 );
         Term term2 = new Term( FIELD_CONTENTS, string2 );
         PhraseQuery phraseQuery = new PhraseQuery.Builder()

@@ -37,7 +37,7 @@ public class LuceneMainTestBase {
     }
 
     @Test
-    @CustomAnnotation
+    @CustomAnnotation()
     public void queriesTest() throws IOException, ParseException, URISyntaxException {
         searchIndexWithPhraseQuery("french", "fries", 0);
         searchIndexWithPhraseQuery("hamburger", "steak", 0);

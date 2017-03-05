@@ -30,7 +30,6 @@ public class CustomAnnotationProcessor extends AbstractProcessor {
         final ElementKind kind;
         final String name;
 
-
         private RecordType(ElementKind kind, String name) {
             this.kind = kind;
             this.name = name;
