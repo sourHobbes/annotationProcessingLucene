@@ -18,12 +18,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <compilerArgument>${proc.type}</compilerArgument>
                     <showWarnings>true</showWarnings>
+                    <annotationProcessors>
+                        com.sdugar.lucene.processor.CustomAnnotationProcessor
+                    </annotationProcessors>
                 </configuration>
             </plugin>
             <!--<plugin>

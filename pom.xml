@@ -13,7 +13,21 @@
         <module>LuceneQuery</module>
         <module>CustomAnnotations</module>
     </modules>
-
+    <build>
+    <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+            <!--<compilerArgument>${proc.type}</compilerArgument>-->
+            <showWarnings>true</showWarnings>
+        </configuration>
+    </plugin>
+    </plugins>
+    </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j.version>1.7.21</slf4j.version>
@@ -21,7 +35,7 @@
         <testng.version>6.9.4</testng.version>
         <log4j.binding.version>1.2.16</log4j.binding.version>
         <auto-service.version>1.0-rc2</auto-service.version>
-        <proc.type>-proc:none</proc.type>
+        <proc.type>-proc:only</proc.type>
     </properties>
 
 </project>

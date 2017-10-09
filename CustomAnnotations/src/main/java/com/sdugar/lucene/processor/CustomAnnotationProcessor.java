@@ -77,7 +77,7 @@ public class CustomAnnotationProcessor extends AbstractProcessor {
                     processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING,
                             String.format("element name: %s, type: %s, modifiers: %s, misc : %s",
                                     e.getSimpleName(), e.getKind(), e.getModifiers().toString(), e.getAnnotation(CustomAnnotation.class).release()));
-                    processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, "Logfile is " + getLogFileObject());
+                    processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, "Logfile is " + getLogFileObject().getName());
 
                     if (e.getAnnotation(CustomAnnotation.class) != null) {
                         CustomAnnotation.Release rel = e.getAnnotation(CustomAnnotation.class).release();

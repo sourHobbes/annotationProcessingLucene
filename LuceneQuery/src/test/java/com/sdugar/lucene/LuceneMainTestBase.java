@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.sdugar.lucene.LuceneMain.createIndex;
 import static com.sdugar.lucene.LuceneMain.searchIndexWithPhraseQuery;
 import static com.sdugar.lucene.LuceneMain.searchIndexWithQueryParser;
 
@@ -25,7 +26,7 @@ public class LuceneMainTestBase {
 
     @BeforeClass
     public void setup() throws IOException {
-        createIndex();
+        LuceneMain.createIndex();
         LOG.info("setup completed");
     }
 
@@ -37,7 +38,7 @@ public class LuceneMainTestBase {
     }
 
     @Test
-    @CustomAnnotation()
+    @CustomAnnotation(release = CustomAnnotation.Release.REL_2)
     public void queriesTest() throws IOException, ParseException, URISyntaxException {
         searchIndexWithPhraseQuery("french", "fries", 0);
         searchIndexWithPhraseQuery("hamburger", "steak", 0);
@@ -53,6 +54,8 @@ public class LuceneMainTestBase {
 
     @Test
     public void localeFileQueries() throws IOException, ParseException, URISyntaxException {
-
+        StringBuilder builder = new StringBuilder();
+        List<String> testArray = new ArrayList<>();
+        testArray.forEach(builder::append);
     }
 }

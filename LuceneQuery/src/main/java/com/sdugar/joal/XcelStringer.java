@@ -17,12 +17,16 @@ public class XcelStringer {
                 .map(a -> a + ", ")
                 .toList();
 
+        alphabet.forEach(System.out::println);
+        System.out.println("\n\n.....\n\n");
+
         Seq.rangeClosed(1, max)
                 .flatMap(length ->
                         Seq.rangeClosed(1, length - 1)
                                 .foldLeft(Seq.seq(alphabet), (s, i) ->
                                         s.crossJoin(Seq.seq(alphabet))
+                                                /*.map(t -> t.v1 + t.v2)*/
                                                 .map(t -> t.v1.replace(", ", "") + t.v2)))
-                .forEach(System.out::print);
+                .forEach(System.out::println);
     }
 }
